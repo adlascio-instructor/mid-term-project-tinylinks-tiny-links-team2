@@ -14,5 +14,5 @@ const showHeader=(req,res)=>{
 module.exports={
     showLogin,
     showRegister,
-    showHeader
+    showHeader,
 }

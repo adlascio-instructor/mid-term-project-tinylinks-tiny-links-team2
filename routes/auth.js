@@ -3,7 +3,7 @@ const router=express.Router();
 const {
     showLogin,
     showRegister,
-    showHeader,
+    showHeader
 }=require("../controllers/authController")
 
 router.get("/login",showLogin);
