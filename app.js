@@ -8,7 +8,6 @@ const authRouter=require("./routes/auth");
 const urlsRouter=require("./routes/urls")
 
 app.set('view engine','ejs')
-
 app.use("/auth",authRouter);
 app.use("/url",urlsRouter);
 
