@@ -41,22 +41,22 @@ const registerUser = async(req, res) => {
     res.redirect("/profile");
 }
 
-// const server = http.createServer((request, response) => {
-//     console.log("url", request.url); {
-//     if (request.url ===  "readFile") {
-//         readFile("./views/partials/header.ejs", "utf8", (error, data) => {
-//             if (error) {
-//                 console.log("error on read file", error);
-//             } else {
-//                 console.log("content file", data);
-//                 response.writeHead(200, { "content-type": "text/html" });
-//                 response.write(data);
-//                 response.end();
-//             }
-//         })
-//         }
-//     }
-// })
+ const server = http.createServer((request, response) => {
+     console.log("url", request.url); {
+     if (request.url ===  "readFile") {
+         readFile("./views/partials/header.ejs", "utf8", (error, data) => {
+             if (error) {
+                 console.log("error on read file", error);
+             } else {
+                 console.log("content file", data);
+                 response.writeHead(200, { "content-type": "text/html" });
+                 response.write(data);
+                 response.end();
+             }
+         })
+         }
+     }
+ })
 
 module.exports={
     showLogin,
