@@ -29,6 +29,16 @@
           </tr>
         </thead>
         <tbody>
+          <% urls.forEach(url => { %>
+            <tr>
+              <th scope="row"><%= url.shortUrl %></th>
+              <td><%= url.longUrl %></td>
+              <td><a href="/urls/<%= url.shortUrl %>/edit">Edit</a></td>
+              <td><a href="/urls/<%= url.shortUrl %>/delete">Delete</a></td>
+            </tr>
+          <% }) %>
+
+
           <tr>
             <th scope="row">1</th>
             <td>https://www.google.com</td>

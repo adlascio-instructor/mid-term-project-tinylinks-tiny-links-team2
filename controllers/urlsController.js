@@ -1,3 +1,5 @@
+const urls = require("../models/urls.json");
+
 // urls functions
 const showNewUrls=(req,res)=>{
     res.render("newUrl");
@@ -8,7 +10,9 @@ const showSingleUrl=(req,res)=>{
 }
 
 const showUrls=(req,res)=>{
-    res.render("urls");
+    console.log("urls", urls);
+    console.log("urls array", values(urls));
+    res.render("urls", {urls: Object.values(urls)});
 }
 
 module.exports={
@@ -16,3 +20,8 @@ module.exports={
     showSingleUrl,
     showUrls,
 }
+
+
+
+  
+  
