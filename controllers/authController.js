@@ -7,13 +7,21 @@ const showLogin=(req,res)=>{
     res.render("login");
 }
 
-const loginUser = (req, res) => {
+const loginUser =async(req, res) => {
     const receivedEmail=req.body.email;
     const receivedPassword=req.body.password;
     const user = users[receivedEmail];
-
+    console.log(user)
     let isMatch;
-    if(user){}
+    if(user){
+        isMatch=await bcrypt.compare(receivedPassword,user.password);
+        console.log("isMAtch",isMatch)
+    }
+    if (!user || !isMatch) return res.send("invalid email or password");
+    if(isMatch){
+        req.session.email=user.email;
+        return res.redirect('/urls')
+    }
 }
 
 const showRegister=(req,res)=>{
@@ -21,7 +29,7 @@ const showRegister=(req,res)=>{
 }
 
 const updateUsers = (updatedUsers) => {
-    fs.writeFile("./models/users.json", JSON.stringify({users:updatedUsers}) ,function(err,data){
+    fs.writeFile("./models/users.json", JSON.stringify(updatedUsers) ,function(err,data){
         if (err) {
             return console.log(err);
           }
@@ -29,38 +37,27 @@ const updateUsers = (updatedUsers) => {
   };
 
 const registerUser = async(req, res) => {
-    const receivedName = req.body.name;
+    const receivedEmail = req.body.email;
     const hashedPassword= await hashPassword(req.body.password);
-    users[receivedName]={
+    users[receivedEmail]={
         ...req.body,
         password:hashedPassword
     };
     console.log("users",users)
-    req.session.username = receivedName;
+    req.session.email = receivedEmail;
     updateUsers(users);
-    res.redirect("/profile");
+    res.redirect("/urls");
 }
 
-// const server = http.createServer((request, response) => {
-//     console.log("url", request.url); {
-//     if (request.url ===  "readFile") {
-//         readFile("./views/partials/header.ejs", "utf8", (error, data) => {
-//             if (error) {
-//                 console.log("error on read file", error);
-//             } else {
-//                 console.log("content file", data);
-//                 response.writeHead(200, { "content-type": "text/html" });
-//                 response.write(data);
-//                 response.end();
-//             }
-//         })
-//         }
-//     }
-// })
+const logoutUser=(req,res)=>{
+    req.session=null;
+    res.redirect("/login")
+}
 
 module.exports={
     showLogin,
     loginUser,
     showRegister,
     registerUser,
+    logoutUser
 }
