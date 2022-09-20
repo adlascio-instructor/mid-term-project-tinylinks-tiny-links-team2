@@ -20,14 +20,14 @@
 
   <body>
     <main style="margin: 1em">
-      <form>
+      <form method="post" action="/login">
         <div>
           <label for="email">Email</label>
-          <input type="email" />
+          <input name="email" type="email" />
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" />
+          <input name="password" type="password" />
         </div>
         <button type="submit">Login</button>
       </form>
