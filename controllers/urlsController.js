@@ -5,59 +5,57 @@ const { response } = require("express");
 const { json } = require("body-parser");
 const { randomBytes } = require("crypto");
 
+
+
 // urls functions
 
-//    const getUrls = () =>{
-//        const urldata= fs.readFileSync("../models/urls.json", "utf-8");
-//        console.log("urls", urldata);
-//        return json.PARSE(urldata).urls;
-//    }
-
-
-const showNewUrls=(req,res)=>{
-
-    fs.readFile("../models/urls.json", "utf-8", (error, data) => {
-        if (error) throw error;
-        console.log("urls", data);
-        response.json(data);
-    })
-
-    const newtoken = randomBytes(6);
-    console.log(newtoken);
-
-    res.render("newUrl");
-}
-
-const showSingleUrl=(req,res)=>{
-    fs.readFile("../models/urls.json", "utf-8", (error, data) => {
-        if (error) throw error;
-        console.log("urls", data);
-        response.json(data);
-    })
-
-    //    const urls = getUrls();
-
-    res.render("singleUrl", {urlToken: "aA1234"});
-}
-
 const showUrls=(req,res)=>{
-    fs.readFile("../models/urls.json", "utf-8", (error, data) => {
-        if (error) throw error;
-        console.log("urls", data);
-        response.json(data);
-    })
-
-//    const urls = getUrls();
-
     res.render("urls", {urls: Object.values(urls)});
 }
 
+const showNewUrls=(req,res)=>{
+    res.render("newUrl");
+}
+
+const updateUrls = (updatedUrl) => {
+    fs.writeFile("./models/urls.json", JSON.stringify({urls:updatedUrl}) ,function(err,data){
+        if (err) {
+            return console.log(err);
+          }
+    })
+  };
+
+
+const addNewUrl=(req,res)=>{
+    console.log("new url request");
+    
+    const newUrl = req.body.url;
+    const token = randomBytes(6);
+    
+    console.log(newUrl);
+    console.log(token);
+
+    urls[token]={
+        shortUrl: token,
+        longUrl: newUrl
+    };
+
+    console.log("urlList",urls)
+    
+    updateUrls(urls);
+    res.redirect("/urls");
+ }
+
+const showSingleUrl=(req,res)=>{
+    res.render("singleUrl", {urlToken: "aA1234"});
+}
 
 
 module.exports={
     showNewUrls,
     showSingleUrl,
     showUrls,
+    addNewUrl,
 }
 
 

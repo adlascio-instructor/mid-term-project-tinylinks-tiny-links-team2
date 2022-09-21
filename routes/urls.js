@@ -2,20 +2,22 @@ const express = require('express');
 
 const{showNewUrls,
       showSingleUrl,
-      showUrls}=require("../controllers/urlsController");
+      showUrls,
+      addNewUrl
+     }=require("../controllers/urlsController");
 
 const router=express.Router();
+
+
+router.get('/urls',showUrls);  // http://localhost:3000/urls/
 
 router.get('/newurl',showNewUrls);
 
 router.get('/singleurl',showSingleUrl);
 
-// http://localhost:3000/urls/
-router.get('/urls',showUrls);
+router.post("/newurl", addNewUrl);
 
-router.post("/urls", showNewUrls);
-
-router.put("/urls", showUrls);
+router.put("/singleurl", showSingleUrl);
 
 router.delete("/urls", showUrls);
 
