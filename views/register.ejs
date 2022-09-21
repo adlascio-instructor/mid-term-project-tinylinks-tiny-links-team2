@@ -14,13 +14,16 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
+    <style>
+      .hide{display: none;visibility: hidden;}
+    </style>
 
     <title>New URL - TinyLinks</title>
   </head>
 
   <body>
     <header>
-      <%- include('partials/header.ejs'); %>
+      <%- include('partials/header.ejs') %>
     </header>
     <main style="margin: 1em">
       <form method="post" action="/register">
@@ -38,6 +41,7 @@
         </div>
         <button type="submit">Register</button>
       </form>
+      <div><h2></h2></div>
     </main>
     <!-- Bootstrap JS -->
     <script

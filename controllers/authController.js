@@ -1,10 +1,20 @@
 const users = require("../models/users.json");
 const {hashPassword}=require("../helpers/users");
 const fs=require('fs');
-const bcrypt=require('bcrypt')
+const bcrypt=require('bcrypt');
+const { 
+    v1: uuidv1
+  } = require('uuid');
 // auth functions
 const showLogin=(req,res)=>{
     res.render("login");
+}
+
+const showLanding=(req,res)=>{
+    const email=req.session.email;
+    if(!email)return res.redirect("/urls");
+    const user=users[email];
+    res.render("urls",{user})
 }
 
 const loginUser =async(req, res) => {
@@ -37,16 +47,24 @@ const updateUsers = (updatedUsers) => {
   };
 
 const registerUser = async(req, res) => {
+    const receivedName=req.body.name
     const receivedEmail = req.body.email;
     const hashedPassword= await hashPassword(req.body.password);
-    users[receivedEmail]={
-        ...req.body,
-        password:hashedPassword
-    };
-    console.log("users",users)
-    req.session.email = receivedEmail;
-    updateUsers(users);
-    res.redirect("/urls");
+    if(!(receivedEmail==="" ||hashedPassword===""||receivedName==="")){
+        users[receivedEmail]={
+            ...req.body,
+            password:hashedPassword,
+            id:uuidv1()
+        };
+        console.log("users",users)
+        req.session.email = receivedEmail;
+        updateUsers(users);
+        res.redirect("/urls");
+    }
+    else{
+        console.log("complete the form")
+    }
+    
 }
 
 const logoutUser=(req,res)=>{
@@ -59,5 +77,6 @@ module.exports={
     loginUser,
     showRegister,
     registerUser,
-    logoutUser
+    logoutUser,
+    showLanding
 }
