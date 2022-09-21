@@ -1,7 +1,1 @@
-{
-  "test@test.com": {
-    "name": "test",
-    "email": "test@test.com",
-    "password": "1234"
-  }
-}
+{"test@test.com":{"name":"test","email":"test@test.com","password":"1234"},"gabriel@gabriel.com":{"name":"gabriel","email":"gabriel@gabriel.com","password":"$2b$12$KApTPyRsytD9vSErDh5t1OMeRF8oRmLYyWZxEBi1DNnmmBsy5NbFi"}}
