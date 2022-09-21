@@ -55,10 +55,11 @@ const registerUser = async(req, res) => {
         users[receivedEmail]={
             ...req.body,
             password:hashedPassword,
-            id:uuidv1()
+            id:uuidv1(),
         };
         console.log("users",users)
         req.session.email = receivedEmail;
+        req.session.id=uuidv1()
         updateUsers(users);
         res.redirect("/urls");
     }
