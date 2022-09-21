@@ -3,7 +3,7 @@ const urls = require("../models/urls.json");
 const fs = require("fs");
 const { response } = require("express");
 const { json } = require("body-parser");
-const { randomBytes } = require("crypto");
+const Crypto = require("crypto");
 
 
 
@@ -25,12 +25,18 @@ const updateUrls = (updatedUrl) => {
     })
   };
 
-
+  function randomString(size = 6){
+   return Crypto
+        .randomBytes(size)
+        .toString('base64')
+        .slice(0, size)
+  }
+  
 const addNewUrl=(req,res)=>{
     console.log("new url request");
     
     const newUrl = req.body.url;
-    const token = randomBytes(6);
+    const token =  randomString();
     
     console.log(newUrl);
     console.log(token);
