@@ -13,13 +13,13 @@ router.get('/urls',showUrls);  // http://localhost:3000/urls/
 
 router.get('/newurl',showNewUrls);
 
-router.get('/singleurl',showSingleUrl);
+router.get('/singleurl/:id',showSingleUrl);
 
 router.post("/newurl", addNewUrl);
 
-router.put("/singleurl", showSingleUrl);
+router.put("/singleurl/:id", showSingleUrl);
 
-router.delete("/urls", showUrls);
+router.delete("/singleurl/:id/delete", showUrls);
 
 module.exports=router
 

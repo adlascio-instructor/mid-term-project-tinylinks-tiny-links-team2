@@ -6,7 +6,6 @@ const { json } = require("body-parser");
 const Crypto = require("crypto");
 
 
-
 // urls functions
 
 const showUrls=(req,res)=>{
@@ -18,12 +17,13 @@ const showNewUrls=(req,res)=>{
 }
 
 const updateUrls = (updatedUrl) => {
-    fs.writeFile("./models/urls.json", JSON.stringify({urls:updatedUrl}) ,function(err,data){
+    fs.writeFile("./models/urls.json", JSON.stringify(updatedUrl) ,function(err,data){
         if (err) {
             return console.log(err);
           }
     })
   };
+
 
   function randomString(size = 6){
    return Crypto
@@ -52,8 +52,21 @@ const addNewUrl=(req,res)=>{
     res.redirect("/urls");
  }
 
+
 const showSingleUrl=(req,res)=>{
-    res.render("singleUrl", {urlToken: "aA1234"});
+    const id = +req.params.id;
+    const url = urls.find((url) => url.shortUrl === id);  
+    
+    res.render("singleUrl", { url });
+}
+
+
+const deleteSingleUrl=(req,res)=>{
+    //pesquisar como excluir
+    const id = +req.params.id;
+    const url = urls.find((url) => url.shortUrl === id);  
+    
+    res.render("singleUrl", { url });
 }
 
 
@@ -62,6 +75,7 @@ module.exports={
     showSingleUrl,
     showUrls,
     addNewUrl,
+    deleteSingleUrl,
 }
 
 
