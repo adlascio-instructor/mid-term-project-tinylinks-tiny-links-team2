@@ -1,4 +1,5 @@
 const users = require("../models/users.json");
+const urls = require("../models/urls.json");
 const {hashPassword}=require("../helpers/users");
 const fs=require('fs');
 const bcrypt=require('bcrypt');
@@ -14,7 +15,7 @@ const showLanding=(req,res)=>{
     const email=req.session.email;
     if(!email)return res.redirect("/urls");
     const user=users[email];
-    res.render("urls",{user})
+    res.render("urls",{user,urls: Object.values(urls)});
 }
 
 const loginUser =async(req, res) => {
