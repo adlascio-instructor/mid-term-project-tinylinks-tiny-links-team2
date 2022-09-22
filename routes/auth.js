@@ -6,7 +6,7 @@ const {
     registerUser,
     loginUser,
     logoutUser,
-    showLanding
+    showLanding,
 }=require("../controllers/authController")
 
 router.get("/",showLanding)
@@ -15,7 +15,6 @@ router.post("/register",registerUser);
 router.get("/register",showRegister);
 router.post("/login",loginUser);
 router.post("/logout",logoutUser);
-
 
 
 module.exports=router
