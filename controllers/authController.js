@@ -8,14 +8,23 @@ const {
   } = require('uuid');
 // auth functions
 const showLogin=(req,res)=>{
-    res.render("login");
+    const email=req.session.email;
+    let user = (req.session === undefined) ? true : false;
+    if(!user)return user={email:false}
+    if(!email){
+        return res.redirect("/urls");
+    }
+    res.render("login",{userData:user});
+
 }
 
 const showLanding=(req,res)=>{
     const email=req.session.email;
-    if(!email)return res.redirect("/urls");
-    const user=users[email];
-    res.render("urls",{user,urls: Object.values(urls)});
+    if(!email){
+        res.redirect("/login")
+    }else{
+        res.redirect("/urls")
+    }
 }
 
 const loginUser =async(req, res) => {

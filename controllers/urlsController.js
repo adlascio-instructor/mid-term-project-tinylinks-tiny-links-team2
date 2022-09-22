@@ -9,6 +9,7 @@ const { response } = require("express");
 const { json } = require("body-parser");
 const Crypto = require("crypto");
 
+
 // urls functions
 const showNewUrls=(req,res)=>{
     const email=req.session.email;
@@ -58,20 +59,27 @@ const showSingleUrl=(req,res)=>{
 
 const showUrls=(req,res)=>{
     const email=req.session.email;
-    if(!email)return res.redirect("/login");
-    res.render("urls",{urls: Object.values(urls)});
-    const id = +req.params.id;
-    const url = urls.find((url) => url.shortUrl === id);  
-    
-    res.render("singleUrl", { url });
+    const user=req.session
+    console.log(user)
+    if(!email){
+        console.log(user)
+        return res.redirect("/login");
+    }else{
+        console.log("--user", user)
+        res.render("urls",{userData:user,urls: Object.values(urls)});
+        const id = +req.params.id;
+        const url = urls.find((url) => url.shortUrl === id);  
+        res.render("singleUrl", { url });
+    }
+
+
 }
 
 
 const deleteSingleUrl=(req,res)=>{
     //pesquisar como excluir
     const id = +req.params.id;
-    const url = urls.find((url) => url.shortUrl === id);  
-    
+    const url = urls.find((url) => url.shortUrl === id);
     res.render("singleUrl", { url });
 }
 
