@@ -3,7 +3,8 @@ const express = require('express');
 const{showNewUrls,
       showSingleUrl,
       showUrls,
-      addNewUrl
+      addNewUrl,
+      deleteSingleUrl
      }=require("../controllers/urlsController");
 
 const router=express.Router();
@@ -19,7 +20,7 @@ router.post("/newurl", addNewUrl);
 
 router.put("/singleurl/:id", showSingleUrl);
 
-router.delete("/singleurl/:id/delete", showUrls);
+router.post("/singleurl/:id/delete", deleteSingleUrl);
 
 module.exports=router
 

@@ -20,8 +20,8 @@
 
   <body>
     <header>
-      <%- include('partials/header.ejs'); %>
-    </header>
+      <%- include('partials/header.ejs',{userData}) %>
+    </header> 
     <main style="margin: 1em">
       <form method="post" action="/login">
         <div>

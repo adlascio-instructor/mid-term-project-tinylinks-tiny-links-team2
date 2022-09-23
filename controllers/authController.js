@@ -7,22 +7,26 @@ const {
     v1: uuidv1
   } = require('uuid');
 // auth functions
-const showLogin=(req,res)=>{
-    res.render("login");
+
+const showLogin=(req,res)=>{   
+    const user={email:false,name:""}
+    res.render("login",{userData:user});
+
 }
 
 const showLanding=(req,res)=>{
+    const userData=req.session
     const email=req.session.email;
-    if(!email)return res.redirect("/urls");
-    const user=users[email];
-    res.render("urls",{user,urls: Object.values(urls)});
+    if(!email)return res.redirect("/login");
+    // const user=users[email];
+    res.render("urls",{userData:userData,urls: Object.values(urls)});
 }
 
 const loginUser =async(req, res) => {
     const receivedEmail=req.body.email;
     const receivedPassword=req.body.password;
     const user = users[receivedEmail];
-    console.log(user)
+    console.log("----loginuser",user)
     let isMatch;
     if(user){
         isMatch=await bcrypt.compare(receivedPassword,user.password);
@@ -31,12 +35,15 @@ const loginUser =async(req, res) => {
     if (!user || !isMatch) return res.send("invalid email or password");
     if(isMatch){
         req.session.email=user.email;
+        req.session.id=user.id;
+        req.session.name=user.name;
         return res.redirect('/urls')
     }
 }
 
 const showRegister=(req,res)=>{
-    res.render("register");
+    const user={email:false,name:""}
+    res.render("register",{userData:user});
 }
 
 const updateUsers = (updatedUsers) => {
@@ -55,10 +62,12 @@ const registerUser = async(req, res) => {
         users[receivedEmail]={
             ...req.body,
             password:hashedPassword,
-            id:uuidv1()
+            id:uuidv1(),
         };
         console.log("users",users)
         req.session.email = receivedEmail;
+        req.session.id=uuidv1();
+        req.session.name=receivedName
         updateUsers(users);
         res.redirect("/urls");
     }
@@ -73,11 +82,13 @@ const logoutUser=(req,res)=>{
     res.redirect("/login")
 }
 
+
+
 module.exports={
     showLogin,
     loginUser,
     showRegister,
     registerUser,
     logoutUser,
-    showLanding
+    showLanding,
 }
