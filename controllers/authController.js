@@ -15,10 +15,11 @@ const showLogin=(req,res)=>{
 }
 
 const showLanding=(req,res)=>{
+    const userData=req.session
     const email=req.session.email;
     if(!email)return res.redirect("/login");
-    const user=users[email];
-    res.render("urls",{user,urls: Object.values(urls)});
+    // const user=users[email];
+    res.render("urls",{userData:userData,urls: Object.values(urls)});
 }
 
 const loginUser =async(req, res) => {
