@@ -60,9 +60,9 @@ const showSingleUrl=(req,res)=>{
 const showUrls=(req,res)=>{
     const email=req.session.email;
     const user=req.session
-    console.log(user)
+    console.log("showurls",user)
     if(!email){
-        console.log(user)
+        console.log("no email",user)
         return res.redirect("/login");
     }else{
         console.log("--user", user)

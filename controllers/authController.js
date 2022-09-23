@@ -7,31 +7,24 @@ const {
     v1: uuidv1
   } = require('uuid');
 // auth functions
-const showLogin=(req,res)=>{
-    const email=req.session.email;
-    let user = (req.session === undefined) ? true : false;
-    if(!user)return user={email:false}
-    if(!email){
-        return res.redirect("/urls");
-    }
+const showLogin=(req,res)=>{   
+    const user={email:false}
     res.render("login",{userData:user});
 
 }
 
 const showLanding=(req,res)=>{
     const email=req.session.email;
-    if(!email){
-        res.redirect("/login")
-    }else{
-        res.redirect("/urls")
-    }
+    if(!email)return res.redirect("/login");
+    const user=users[email];
+    res.render("urls",{user,urls: Object.values(urls)});
 }
 
 const loginUser =async(req, res) => {
     const receivedEmail=req.body.email;
     const receivedPassword=req.body.password;
     const user = users[receivedEmail];
-    console.log(user)
+    console.log("----loginuser",user)
     let isMatch;
     if(user){
         isMatch=await bcrypt.compare(receivedPassword,user.password);
