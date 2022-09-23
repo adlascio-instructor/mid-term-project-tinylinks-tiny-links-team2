@@ -14,7 +14,6 @@ const Crypto = require("crypto");
 const showNewUrls=(req,res)=>{
     const user=req.session
     const email=req.session.email;
-    const user=req.session;
     if(!email)return res.redirect("/login");
     res.render("newUrl",{userData:user});
 }
