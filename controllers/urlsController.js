@@ -12,6 +12,7 @@ const Crypto = require("crypto");
 
 // urls functions
 const showNewUrls=(req,res)=>{
+    const user=req.session
     const email=req.session.email;
     const user=req.session;
     if(!email)return res.redirect("/login");
@@ -65,11 +66,12 @@ const showUrls=(req,res)=>{
         console.log("no email",user)
         return res.redirect("/login");
     }else{
-        console.log("--user", user)
+        console.log("--user shurls", user)
         res.render("urls",{userData:user,urls: Object.values(urls)});
-        const id = +req.params.id;
-        const url = urls.find((url) => url.shortUrl === id);  
-        res.render("singleUrl", { url });
+        // const id = +req.params.id;
+        // const url = urls.find((url) => url.shortUrl === id);  
+
+        // res.render("singleUrl", { url });
     }
 
 
@@ -77,7 +79,6 @@ const showUrls=(req,res)=>{
 
 
 const deleteSingleUrl=(req,res)=>{
-    //pesquisar como excluir
     const id = +req.params.id;
     const url = urls.find((url) => url.shortUrl === id);
     res.render("singleUrl", { url });
