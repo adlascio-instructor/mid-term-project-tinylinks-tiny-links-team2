@@ -52,7 +52,6 @@ const addNewUrl=(req,res)=>{
 
 
 const showSingleUrl=(req,res)=>{
-
     const email=req.session.email;
     if(!email)return res.redirect("/login");
     res.render("singleUrl");
@@ -78,9 +77,9 @@ const showUrls=(req,res)=>{
 
 
 const deleteSingleUrl=(req,res)=>{
-    const id = +req.params.id;
-    const url = urls.find((url) => url.shortUrl === id);
-    res.render("singleUrl", { url });
+    const id = req.params.id
+    console.log(id)
+    
 }
 
 

@@ -20,7 +20,7 @@ router.post("/newurl", addNewUrl);
 
 router.put("/singleurl/:id", showSingleUrl);
 
-router.delete("/singleurl/:id", deleteSingleUrl);
+router.post("/singleurl/:id/delete", deleteSingleUrl);
 
 module.exports=router
 
