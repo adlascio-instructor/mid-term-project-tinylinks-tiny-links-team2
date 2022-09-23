@@ -21,7 +21,7 @@
         </div>
 
           <% if( userData.email ){ %>
-            <span class="nav-item nav-link">Logged in as: <%= userData.email %>  </span> 
+            <span class="nav-item nav-link">Logged in as: <%= userData.name %>  </span> 
             <form method="post" action="/logout">
               <button type="submit" class="btn btn-danger">Logout</button>
             </form>

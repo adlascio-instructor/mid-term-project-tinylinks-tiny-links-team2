@@ -9,7 +9,7 @@ const {
 // auth functions
 
 const showLogin=(req,res)=>{   
-    const user={email:false}
+    const user={email:false,name:""}
     res.render("login",{userData:user});
 
 }
@@ -42,7 +42,7 @@ const loginUser =async(req, res) => {
 }
 
 const showRegister=(req,res)=>{
-    const user={email:false}
+    const user={email:false,name:""}
     res.render("register",{userData:user});
 }
 
