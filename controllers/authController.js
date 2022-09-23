@@ -7,6 +7,7 @@ const {
     v1: uuidv1
   } = require('uuid');
 // auth functions
+
 const showLogin=(req,res)=>{   
     const user={email:false}
     res.render("login",{userData:user});
@@ -38,7 +39,8 @@ const loginUser =async(req, res) => {
 }
 
 const showRegister=(req,res)=>{
-    res.render("register");
+    const user={email:false}
+    res.render("register",{userData:user});
 }
 
 const updateUsers = (updatedUsers) => {

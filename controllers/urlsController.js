@@ -13,8 +13,9 @@ const Crypto = require("crypto");
 // urls functions
 const showNewUrls=(req,res)=>{
     const email=req.session.email;
+    const user=req.session;
     if(!email)return res.redirect("/login");
-    res.render("newUrl");
+    res.render("newUrl",{userData:user});
 }
 
 const updateUrls = (updatedUrl) => {
@@ -59,8 +60,7 @@ const showSingleUrl=(req,res)=>{
 
 const showUrls=(req,res)=>{
     const email=req.session.email;
-    const user=req.session
-    console.log("showurls",user)
+    const user=req.session;
     if(!email){
         console.log("no email",user)
         return res.redirect("/login");
