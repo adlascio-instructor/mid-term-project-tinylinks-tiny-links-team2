@@ -33,6 +33,8 @@ const loginUser =async(req, res) => {
     if (!user || !isMatch) return res.send("invalid email or password");
     if(isMatch){
         req.session.email=user.email;
+        req.session.id=user.id;
+        req.session.name=user.name;
         return res.redirect('/urls')
     }
 }
@@ -61,7 +63,8 @@ const registerUser = async(req, res) => {
         };
         console.log("users",users)
         req.session.email = receivedEmail;
-        req.session.id=uuidv1()
+        req.session.id=uuidv1();
+        req.session.name=receivedName
         updateUsers(users);
         res.redirect("/urls");
     }
