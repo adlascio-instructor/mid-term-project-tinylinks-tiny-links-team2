@@ -13,7 +13,7 @@ const Crypto = require("crypto");
 // urls functions
 const showNewUrls=(req,res)=>{
     const user=req.session
-    const email=req.session.email;
+   const email=req.session.email;
     if(!email)return res.redirect("/login");
     res.render("newUrl",{userData:user});
 }
@@ -33,12 +33,14 @@ const updateUrls = (updatedUrl) => {
         .toString('base64')
         .slice(0, size)
   }
+ 
   
 const addNewUrl=(req,res)=>{
     console.log("new url request");
     const userPost=req.session.id;
     const newUrl = req.body.url;
     const token =  randomString();
+
     urls[token]={
         shortUrl: token,
         longUrl: newUrl,
@@ -53,8 +55,14 @@ const addNewUrl=(req,res)=>{
 
 const showSingleUrl=(req,res)=>{
     const email=req.session.email;
-    if(!email)return res.redirect("/login");
-    res.render("singleUrl");
+    const user=req.session;
+
+    const id = req.params.id
+    //console.log(id);
+
+       if(!email)return res.redirect("/login");
+       res.render("singleUrl",  {userData: user, url: id});
+     
 }
 
 const showUrls=(req,res)=>{
@@ -66,10 +74,7 @@ const showUrls=(req,res)=>{
     }else{
         console.log("--user shurls", user)
         res.render("urls",{userData:user,urls: Object.values(urls)});
-        // const id = +req.params.id;
-        // const url = urls.find((url) => url.shortUrl === id);  
-
-        // res.render("singleUrl", { url });
+       
     }
 
 
@@ -78,9 +83,49 @@ const showUrls=(req,res)=>{
 
 const deleteSingleUrl=(req,res)=>{
     const id = req.params.id
-    console.log(id)
+//    console.log(id)
+  
+    console.log("delete url request");
+    const userPost=req.session.id;
     
+    for (const url in urls)
+    {
+        if ( url === id)
+        {
+         //console.log( urls[url].longUrl)  
+         delete(urls[url])
+        }
+        };
+    
+    updateUrls(urls);
+    res.redirect("/urls");
+
+
 }
+
+
+const editSingleUrl=(req,res)=>{
+    const id = req.params.id
+//    console.log(id)
+
+    console.log("new url request");
+    const userPost=req.session.id;
+    const newUrl = req.body.newUrl;
+   
+    for (const url in urls)
+    {
+        if ( url === id)
+        {
+         //console.log( urls[url].longUrl)  
+         urls[url].longUrl   = newUrl;
+        }
+        };
+    
+    updateUrls(urls);
+    res.redirect("/urls");
+ }
+
+
 
 
 module.exports={
@@ -89,6 +134,7 @@ module.exports={
     showUrls,
     addNewUrl,
     deleteSingleUrl,
+    editSingleUrl,
 }
 
 
