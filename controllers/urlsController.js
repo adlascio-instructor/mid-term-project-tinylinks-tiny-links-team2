@@ -72,8 +72,12 @@ const showUrls=(req,res)=>{
 
         // res.render("singleUrl", { url });
     }
+}
 
-
+const editSingleUrl = (req,res) => {
+    const id = +req.params.id;
+    const url = urls.find((url) => url.shortUrl === id);
+    res.render("singleUrl", { url });
 }
 
 const editSingleUrl = (req,res) => {
@@ -84,9 +88,11 @@ const editSingleUrl = (req,res) => {
 
 
 const deleteSingleUrl=(req,res)=>{
-    const id = +req.params.id;
-    const url = urls.find((url) => url.shortUrl === id);
-    res.render("singleUrl", { url });
+    const id = req.params.id
+    delete urls[id];
+    const urlS=JSON.stringify(urls);
+    fs.writeFileSync("./models/urls.json",urlS);
+    res.redirect("/urls")
 }
 
 

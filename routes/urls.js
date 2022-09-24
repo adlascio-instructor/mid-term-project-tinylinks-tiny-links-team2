@@ -21,7 +21,7 @@ router.post("/newurl", addNewUrl);
 
 router.post("/singleurl/:id", showSingleUrl);
 
-router.delete("/singleurl/:id", deleteSingleUrl);
+router.post("/singleurl/:id/delete", deleteSingleUrl);
 
 router.put("/singleurl/:id", editSingleUrl);
 
