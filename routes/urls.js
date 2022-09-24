@@ -18,7 +18,7 @@ router.get('/singleurl/:id',showSingleUrl);
 
 router.post("/newurl", addNewUrl);
 
-router.put("/singleurl/:id", showSingleUrl);
+router.post("/singleurl/:id", showSingleUrl);
 
 router.post("/singleurl/:id/delete", deleteSingleUrl);
 

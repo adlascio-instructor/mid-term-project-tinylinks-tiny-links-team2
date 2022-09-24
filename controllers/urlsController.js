@@ -52,9 +52,10 @@ const addNewUrl=(req,res)=>{
 
 
 const showSingleUrl=(req,res)=>{
+    const user=req.session
     const email=req.session.email;
     if(!email)return res.redirect("/login");
-    res.render("singleUrl");
+    res.render("singleUrl",{userData:user});
 }
 
 const showUrls=(req,res)=>{
@@ -71,15 +72,15 @@ const showUrls=(req,res)=>{
 
         // res.render("singleUrl", { url });
     }
-
-
 }
 
 
 const deleteSingleUrl=(req,res)=>{
     const id = req.params.id
-    console.log(id)
-    
+    delete urls[id];
+    const urlS=JSON.stringify(urls);
+    fs.writeFileSync("./models/urls.json",urlS);
+    res.redirect("/urls")
 }
 
 
