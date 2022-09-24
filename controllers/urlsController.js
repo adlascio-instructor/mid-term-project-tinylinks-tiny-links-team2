@@ -52,10 +52,10 @@ const addNewUrl=(req,res)=>{
 
 
 const showSingleUrl=(req,res)=>{
-
+    const user={email:false,name:""};
     const email=req.session.email;
     if(!email)return res.redirect("/login");
-    res.render("singleUrl");
+    res.render("singleUrl",{userData:user, urls: Object.values(urls)} );
 }
 
 const showUrls=(req,res)=>{
@@ -76,6 +76,12 @@ const showUrls=(req,res)=>{
 
 }
 
+const editSingleUrl = (req,res) => {
+    const id = +req.params.id;
+    const url = urls.find((url) => url.shortUrl === id);
+    res.render("singleUrl", { url });
+}
+
 
 const deleteSingleUrl=(req,res)=>{
     const id = +req.params.id;
@@ -90,6 +96,7 @@ module.exports={
     showUrls,
     addNewUrl,
     deleteSingleUrl,
+    editSingleUrl,
 }
 
 
