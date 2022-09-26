@@ -102,11 +102,7 @@ const editSingleUrl = (req,res) => {
     res.render("singleUrl", { url });
 }
 
-const editSingleUrl = (req,res) => {
-    const id = +req.params.id;
-    const url = urls.find((url) => url.shortUrl === id);
-    res.render("singleUrl", { url });
-}
+
 
 
 const deleteSingleUrl=(req,res)=>{

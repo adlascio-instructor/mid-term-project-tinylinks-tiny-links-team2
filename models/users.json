@@ -1,8 +1,1 @@
-{
-    "nic@nic":{
-    "name":"nico",
-    "email":"nic@nic",
-    "password":"$2b$12$DYrpFgbYy8wwQbWBOrHt1uI43IdJ84fIhK.Ko.mm9I0hyFyVSVFl6",
-    "id":"c12ee050-39fc-11ed-a89c-0f901559cb20"
-
-    }}
+{"nic@nic":{"name":"nico","email":"nic@nic","password":"$2b$12$Ib3IFP0u9NVi5v3g9EtuVu5ppFHICILl2u3kXm.l5xUk.3c05Tgg.","id":"305d6280-3d5e-11ed-96a4-954ce7240662"},"gab@gab":{"name":"gabriel","email":"gab@gab","password":"$2b$12$nO.29Brua8prs8.imtGPxeJEmD2EHHWp5JTgqICk6VUuvNpOzoRsW","id":"452646f0-3d5e-11ed-9035-f788d32159d6"}}
