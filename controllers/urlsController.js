@@ -103,7 +103,27 @@ const showUrls=(req,res)=>{
     }
 }
 
+const deleteSingleUrl=(req,res)=>{
+    const id = req.params.id
+//    console.log(id)
+  
+    console.log("delete url request");
+    const userPost=req.session.id;
+    
+    for (const url in urls)
+    {
+        if ( url === id)
+        {
+         //console.log( urls[url].longUrl)  
+         delete(urls[url])
+        }
+        };
+    
+    updateUrls(urls);
+    res.redirect("/urls");
 
+
+}
 
 
 const editSingleUrl=(req,res)=>{
