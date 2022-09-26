@@ -4,7 +4,8 @@ const{showNewUrls,
       showSingleUrl,
       showUrls,
       addNewUrl,
-      deleteSingleUrl
+      deleteSingleUrl,
+      editSingleUrl,
      }=require("../controllers/urlsController");
 
 const router=express.Router();
@@ -21,6 +22,8 @@ router.post("/newurl", addNewUrl);
 router.post("/singleurl/:id", showSingleUrl);
 
 router.post("/singleurl/:id/delete", deleteSingleUrl);
+
+router.put("/singleurl/:id", editSingleUrl);
 
 module.exports=router
 
