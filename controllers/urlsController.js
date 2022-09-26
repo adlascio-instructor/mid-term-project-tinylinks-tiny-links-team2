@@ -61,16 +61,38 @@ const showSingleUrl=(req,res)=>{
 const showUrls=(req,res)=>{
     const email=req.session.email;
     const user=req.session;
+    const userId=req.session.id
     if(!email){
         console.log("no email",user)
         return res.redirect("/login");
     }else{
-        console.log("--user shurls", user)
-        res.render("urls",{userData:user,urls: Object.values(urls)});
-        // const id = +req.params.id;
-        // const url = urls.find((url) => url.shortUrl === id);  
+        console.log("--user shurls", user);
+        let keys=[];
+        let userUrls={};
+        function getKeyByValue(userId) {
+            Object.keys(urls).find(key =>{
+                console.log("---json",urls[key].userId)
+                console.log("------cookie",userId)
+                if(urls[key].userId === userId){
+                    console.log("imgetting the keys")
+                    keys.push(key)
+                }
+            });
+        }
+        getKeyByValue(userId)
+        if(keys.length===0){
+            console.log("no urls")
+            res.render("urls",{userData:user,urls: Object.values(userUrls)})
+        }else{
+            keys.forEach(key=>{
+                const url=urls[key];
+                userUrls[key]=url;
+                console.log(userUrls)
+            })
+            res.render("urls",{userData:user,urls: Object.values(userUrls)});
+        }
 
-        // res.render("singleUrl", { url });
+    
     }
 }
 
