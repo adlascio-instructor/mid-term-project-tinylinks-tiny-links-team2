@@ -23,6 +23,8 @@ router.post("/singleurl/:id/edit", editSingleUrl);
 
 router.post("/singleurl/:id/delete", deleteSingleUrl);
 
+router.put("/singleurl/:id", editSingleUrl);
+
 module.exports=router
 
 

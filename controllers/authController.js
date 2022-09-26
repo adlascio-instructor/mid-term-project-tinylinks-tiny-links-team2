@@ -64,9 +64,9 @@ const registerUser = async(req, res) => {
             password:hashedPassword,
             id:uuidv1(),
         };
-        console.log("users",users)
+        const user=users[receivedEmail];
         req.session.email = receivedEmail;
-        req.session.id=uuidv1();
+        req.session.id=user.id;
         req.session.name=receivedName
         updateUsers(users);
         res.redirect("/urls");
