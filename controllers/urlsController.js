@@ -33,12 +33,14 @@ const updateUrls = (updatedUrl) => {
         .toString('base64')
         .slice(0, size)
   }
+ 
   
 const addNewUrl=(req,res)=>{
     console.log("new url request");
     const userPost=req.session.id;
     const newUrl = req.body.url;
     const token =  randomString();
+
     urls[token]={
         shortUrl: token,
         longUrl: newUrl,
@@ -52,10 +54,15 @@ const addNewUrl=(req,res)=>{
 
 
 const showSingleUrl=(req,res)=>{
-    const user={email:false,name:""};
     const email=req.session.email;
-    if(!email)return res.redirect("/login");
-    res.render("singleUrl",{userData:user, urls: Object.values(urls)} );
+    const user=req.session;
+
+    const id = req.params.id
+    //console.log(id);
+
+       if(!email)return res.redirect("/login");
+       res.render("singleUrl",  {userData: user, url: id});
+     
 }
 
 const showUrls=(req,res)=>{
@@ -103,15 +110,54 @@ const editSingleUrl = (req,res) => {
 }
 
 
-
-
-const deleteSingleUrl=(req,res)=>{
-    const id = req.params.id
-    delete urls[id];
-    const urlS=JSON.stringify(urls);
-    fs.writeFileSync("./models/urls.json",urlS);
-    res.redirect("/urls")
 }
+
+
+const editSingleUrl=(req,res)=>{
+    const id = req.params.id
+//    console.log(id)
+  
+    console.log("delete url request");
+    const userPost=req.session.id;
+    
+    for (const url in urls)
+    {
+        if ( url === id)
+        {
+         //console.log( urls[url].longUrl)  
+         delete(urls[url])
+        }
+        };
+    
+    updateUrls(urls);
+    res.redirect("/urls");
+
+
+}
+
+
+const editSingleUrl=(req,res)=>{
+    const id = req.params.id
+//    console.log(id)
+
+    console.log("new url request");
+    const userPost=req.session.id;
+    const newUrl = req.body.newUrl;
+   
+    for (const url in urls)
+    {
+        if ( url === id)
+        {
+         //console.log( urls[url].longUrl)  
+         urls[url].longUrl   = newUrl;
+        }
+        };
+    
+    updateUrls(urls);
+    res.redirect("/urls");
+ }
+
+
 
 
 module.exports={
